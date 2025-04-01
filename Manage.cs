@@ -9,7 +9,7 @@ namespace UsingIAsyncEnumerableTaskYield
 {
     internal class Manage
     {
-        public async IAsyncEnumerable<IEnumerable<Modelo>> GetModels(int numeroPagina, int cantidadRegistros)
+        public async IAsyncEnumerable<IEnumerable<Modelo>> GetModelsWithYieldAndDatabase(int numeroPagina, int cantidadRegistros)
         {
             var context = new DataContext(new DbContextOptionsBuilder<DataContext>()
                 .UseSqlServer("Server=.;Database=AdventureWorks2022_Restored;Trusted_Connection=True;TrustServerCertificate=True;")
@@ -45,7 +45,7 @@ namespace UsingIAsyncEnumerableTaskYield
             }
         }
 
-        public IEnumerable<Modelo> GetModelsList()
+        public async Task<IEnumerable<Modelo>> GetModelsListWithoutYield()
         {
             List<Modelo> models = new List<Modelo>();
             models.Add(new Modelo
@@ -183,9 +183,150 @@ namespace UsingIAsyncEnumerableTaskYield
                 TotalRevenue = 100
             });
 
-            Thread.Sleep(16000);
+            await Task.Delay(16000);
 
             return models;
+        }
+
+        public async IAsyncEnumerable<Modelo> GetModelsListWithYield()
+        {
+            
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Naroly",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Reyning",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(800);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Erick",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(850);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Eduardo",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(600);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Pamela",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Omar",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Keury",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Elier",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Hugo",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Christofer",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "David",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Emmanuel",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Victor",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Raymond",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Jahaziel",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Rosa",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
+            yield return new Modelo
+            {
+                SalesOrderDetailID = 1,
+                ProductName = "Enjher",
+                TotalQuantitySold = 10,
+                TotalRevenue = 100
+            };
+            await Task.Delay(1000);
         }
     }
 }

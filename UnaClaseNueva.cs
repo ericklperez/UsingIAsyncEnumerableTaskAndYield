@@ -13,30 +13,33 @@ namespace UsingIAsyncEnumerableTaskYield
         {
             Manage manage = new Manage();
 
-            //var task1 = Task.Run(() => {
-            //    Console.WriteLine("Primera lista sin yield");
-            //    var datalistModels = manage.GetModelsList();
-            //    foreach (var data in datalistModels)
+            //DESCOMENTAR CODIGO SI CUENTA CON BASE DE DATOS ADVENTUREWORKS_2022
+            //Console.WriteLine("Lista con yield y base de datos");
+            //var dataList = manage.GetModelsWithYieldAndDatabase(100,100);
+            //await foreach (var dataListYield in dataList)
+            //{
+            //    foreach (var data in dataListYield.ToList())
             //    {
             //        Console.WriteLine($"ProductID: {data.SalesOrderDetailID} - ProductName: {data.ProductName} - TotalQuantitySold: {data.TotalQuantitySold} - TotalRevenue: {data.TotalRevenue}");
             //    }
-            //});
+            //}
 
-            //await task1;
-            Console.Write("");
-            var task2 = Task.Run(async () => {
-                Console.WriteLine("Segunda lista con yield");
-                var dataList = manage.GetModels(100,100);
-                await foreach (var dataListYield in dataList)
-                {
-                    foreach (var data in dataListYield.ToList())
-                    {
-                        Console.WriteLine($"ProductID: {data.SalesOrderDetailID} - ProductName: {data.ProductName} - TotalQuantitySold: {data.TotalQuantitySold} - TotalRevenue: {data.TotalRevenue}");
-                    }
-                }
-            });
+            Console.WriteLine("Lista con yield y sin base de datos. Se observa cómo se obtienen los datos mientras se procesa sin esperar a que se lean todos.");
+            var dataList = manage.GetModelsListWithYield();
+            await foreach (var data in dataList)
+            {
+                Console.WriteLine($"ProductID: {data.SalesOrderDetailID} - ProductName: {data.ProductName} - TotalQuantitySold: {data.TotalQuantitySold} - TotalRevenue: {data.TotalRevenue}");
+            }
 
-            await task2;
+            Console.WriteLine("Lista sin yield. Se observa de que se tiene que esperar que se termine de procesar todos los datos hasta que responda.");
+            var datalistModels = await manage.GetModelsListWithoutYield();
+            foreach (var data in datalistModels)
+            {
+                Console.WriteLine($"ProductID: {data.SalesOrderDetailID} - ProductName: {data.ProductName} - TotalQuantitySold: {data.TotalQuantitySold} - TotalRevenue: {data.TotalRevenue}");
+            }
+
+            Console.Write("--------------------------------------");
+            Console.Read();
 
         }
     }
