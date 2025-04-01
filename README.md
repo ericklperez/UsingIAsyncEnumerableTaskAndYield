@@ -1,4 +1,4 @@
-# Proyecto Using IAsyncEnumerable Task and Yield
+# Usando IAsyncEnumerable Task y Yield
 
 Este proyecto demuestra el uso de `IAsyncEnumerable` y `Task` en C#.
 
